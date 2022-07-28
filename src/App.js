@@ -15,7 +15,7 @@ export default function App() {
     getOrderList();
   }, []);
 
-  const saveOrder = () => {
+  const createCart = () => {
     if (!selectedSize) alert("Please choose size!");
     else {
       var exists = false;
@@ -41,7 +41,7 @@ export default function App() {
             sizeLabel: selectedSize,
           }),
         };
-        fetch(baseURL+"saveOrder", requestOptions).then(() => {
+        fetch(baseURL+"createCart", requestOptions).then(() => {
           getOrderList();
           alert("ORDER SAVED!");
         });
@@ -53,7 +53,7 @@ export default function App() {
     const requestOptions = {
       withCredentials: true,
   };
-    axios.get(baseURL+"getData", requestOptions).then((res) => {
+    axios.get(baseURL+"getCart", requestOptions).then((res) => {
       setOrderList(JSON.parse(res.data.orderList));
     });
   };
@@ -63,7 +63,7 @@ export default function App() {
       withCredentials: true,
   };
     axios
-      .get(baseURL+"updateData?sizeLabel=" + selectedSize, requestOptions)
+      .get(baseURL+"updateCart?sizeLabel=" + selectedSize, requestOptions)
       .then((res) => {
         setOrderList(JSON.parse(res.data.orderList));
         alert("ORDER UPDATED!");
@@ -93,7 +93,7 @@ export default function App() {
                 {size.label}
               </button>
             ))}
-          <button onClick={saveOrder}>ADD TO CART</button>
+          <button onClick={createCart}>ADD TO CART</button>
         </Box>
       </Box>
     );
